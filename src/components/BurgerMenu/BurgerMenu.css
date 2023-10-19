@@ -1,0 +1,177 @@
+.burger {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+  pointer-events: none;
+}
+
+.burger--main {
+  display: none;
+}
+
+.burger-checkbox {
+  position: absolute;
+  visibility: hidden;
+  right: 0px;
+}
+
+.burger__button {
+  position: absolute;
+  z-index: 4;
+  cursor: pointer;
+  display: none;
+  border: none;
+  background: transparent;
+  width: 28px;
+  height: 21px;
+  top: 26px;
+  right: 38px;
+  pointer-events: auto;
+
+}
+
+.burger__button::before,
+.burger__button::after {
+  content: '';
+  left: 0;
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 3px;
+  border-radius: 6px;
+  background: #000;
+}
+
+.burger__button::before {
+  top: 0;
+  box-shadow: 0 9.25px 0 #000;
+  transition: box-shadow .3s .15s, top .3s .15s, transform .3s;
+}
+
+.burger__button::after {
+  bottom: 0;
+  transition: bottom .3s .15s, transform .3s;
+}
+
+.burger-checkbox:checked + .burger__button::before {
+  top: 9.25px;
+  transform: rotate(45deg);
+  box-shadow: 0 5.5px 0 rgba(0,0,0,0);
+  transition: box-shadow .15s, top .3s, transform .3s .15s;
+}
+
+.burger-checkbox:checked + .burger__button::after {
+  bottom: 9.25px;
+  transform: rotate(-45deg);
+  transition: bottom .3s, transform .3s .15s;
+}
+
+.burger__button-account {
+  display: flex;
+  position: absolute;
+  bottom: 100px;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  width: 100px;
+  margin: 0;
+  background-color: #f9f9f9;
+  color: black;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  border-radius: 2px;
+  border: 0;
+  cursor: pointer;
+  border-radius: 20px;
+  text-decoration: none;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+  .burger__menu-list {
+    top: 0;
+    right: 0;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding: 159px 0 42px;
+    margin: 0;
+    background: white;
+    list-style-type: none;
+    transition: .3s;
+    width: 200px;
+    z-index: 3;
+    opacity: 0;
+    transition: 0.6s;
+    align-items: center;
+    min-width: 520px;
+    height: 100vh;
+  }
+
+  .burger__menu-item {
+    padding: 0 0 5px 0;
+    color: black;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21.78px;
+    text-align: center;
+    text-decoration: none;
+  }
+  .burger__menu-item:hover {
+    background: rgba(255,255,255,.2);
+    border-bottom: 2px solid black;
+  }
+  .burger-checkbox:checked ~ .burger__menu-list {
+    opacity: 1;
+    pointer-events: auto;
+
+  }
+
+  .burger-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 2; 
+    opacity: 0; 
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  
+  .burger-checkbox:checked ~ .burger-overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  @media screen and (max-width: 800px) {
+    .burger {
+      display: block;
+    }
+
+    .burger__button { 
+      display: block;
+    }
+  }
+
+  @media screen and (max-width: 555px) {
+    .burger {
+      display: block;
+      width: 100%;
+    }
+
+    .burger__button {
+      width: 22px;
+      height: 21px;
+      top: 26px;
+      right: 23px;
+    }
+
+    .burger__menu-list {
+      min-width: 100%;
+    }
+  }

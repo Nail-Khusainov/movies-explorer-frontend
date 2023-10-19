@@ -1,0 +1,32 @@
+.header__nav {
+    display: flex;
+    /* border: 1px solid red; */
+    gap: 16px;
+    text-decoration: none;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    color: black;
+    padding: 0 0 0 3px;
+    margin: 0;
+}
+
+.header__nav--main {
+    display: none;
+}
+
+.header__nav-link {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 18px;
+    color: black;
+    padding: 0;
+    margin: 0;
+}
+
+@media screen and (max-width: 800px) {
+    .header__nav {
+        display: none;
+    } 
+}
