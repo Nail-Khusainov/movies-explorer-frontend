@@ -8,13 +8,12 @@ import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
 
 function MoviesPage() {
     return (
-          <div className="movies-page">
-            <Header/>
+          <section className="movies-page">
             <SearchForm/>
             <FilterCheckbox/>
             <MoviesCardList/>
             <Footer/>
-          </div>
+          </section>
     );
   }
   

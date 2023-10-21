@@ -6,11 +6,11 @@
   pointer-events: none;
 }
 
-.burger--main {
+.burger-disabled {
   display: none;
 }
 
-.burger-checkbox {
+.burger__checkbox {
   position: absolute;
   visibility: hidden;
   right: 0px;
@@ -54,14 +54,14 @@
   transition: bottom .3s .15s, transform .3s;
 }
 
-.burger-checkbox:checked + .burger__button::before {
+.burger__checkbox:checked + .burger__button::before {
   top: 9.25px;
   transform: rotate(45deg);
   box-shadow: 0 5.5px 0 rgba(0,0,0,0);
   transition: box-shadow .15s, top .3s, transform .3s .15s;
 }
 
-.burger-checkbox:checked + .burger__button::after {
+.burger__checkbox:checked + .burger__button::after {
   bottom: 9.25px;
   transform: rotate(-45deg);
   transition: bottom .3s, transform .3s .15s;
@@ -108,7 +108,7 @@
     transition: 0.6s;
     align-items: center;
     min-width: 520px;
-    height: 100vh;
+    min-height: 100vh;
   }
 
   .burger__menu-item {
@@ -124,7 +124,7 @@
     background: rgba(255,255,255,.2);
     border-bottom: 2px solid black;
   }
-  .burger-checkbox:checked ~ .burger__menu-list {
+  .burger__checkbox:checked ~ .burger__menu-list {
     opacity: 1;
     pointer-events: auto;
 
@@ -143,7 +143,7 @@
     transition: opacity 0.3s;
   }
   
-  .burger-checkbox:checked ~ .burger-overlay {
+  .burger__checkbox:checked ~ .burger-overlay {
     opacity: 1;
     pointer-events: auto;
   }

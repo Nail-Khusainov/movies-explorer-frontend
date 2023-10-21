@@ -1,20 +1,15 @@
 import "./Navigation.css";
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import AuthNavigation from "../AuthNavigation/AuthNavigation";
+import NotAuthNavigation from "../NotAuthNavigation/NotAuthNavigation";
 
-function Navigation() {
-    const location = useLocation();
-    const isMain = location.pathname === '/';
 
+function Navigation({isLoggedIn}) {
     return (
-        <nav className={`${isMain ? 'header__nav--main' : 'header__nav'}`}>        
-            <NavLink to="/movies" className="header__nav-link">
-                Фильмы
-            </NavLink>
-            <NavLink to="/saved-movies" className="header__nav-link">
-                Сохранённые фильмы
-            </NavLink>
-        </nav>
+        <>
+            {isLoggedIn ? <AuthNavigation /> : <NotAuthNavigation />}
+        </>
     );
 }
 

@@ -147,11 +147,12 @@
 
     .aboutme__info-block {
         flex-direction: column-reverse;
+        gap: 0px;
     }
 
     .aboutme__info {
         padding-top: 40px;
-        /* border: 1px solid red; */
+        align-items: center;
     }
 
     .aboutme__info-title {
@@ -169,14 +170,13 @@
     .aboutme__info-text {
         font-size: 11px;
         line-height: 16px;
-        max-width: 364px;
     }
 
     .aboutme__photo {
         width: 292px;
         height: 352px;
         margin-top: 60px;
-
+        align-self: center;
     }
 
     .aboutme__link {

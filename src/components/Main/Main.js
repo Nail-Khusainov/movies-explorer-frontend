@@ -9,14 +9,14 @@ import Techs from './Techs/Techs';
 
 function Main() {
     return (
-        <div className="main">
+        <section className="main">
             <Promo/>
             <NavTab/>
             <AboutProject />
             <Techs />
             <AboutMe />
             <Portfolio />
-        </div>
+        </section>
     );
 }
 

@@ -11,7 +11,6 @@ import MoviesCard from "../../components/MoviesCard/MoviesCard";
 function SavedMoviesPage() {
     return (
           <div className="movies-page">
-            <Header/>
             <SearchForm/>
             <FilterCheckbox/>
             {/* <MoviesCardList/> */}

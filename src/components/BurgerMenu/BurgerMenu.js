@@ -2,14 +2,15 @@ import React from "react";
 import "./BurgerMenu.css";
 import { NavLink, useLocation } from "react-router-dom";
 
-function BurgerMenu() {
+function BurgerMenu({ setIsBurgerOpened }) {
     const location = useLocation();
     const isMain = location.pathname === '/';
 
     return (
-        <section className={`${isMain ? 'burger--main' : 'burger'}`}>
+
+        <section className={`${isMain ? 'burger-disabled' : 'burger'}`}>
             <div className="burger__menu">
-                <input type="checkbox" id="burger-checkbox" className="burger-checkbox" />
+                <input type="checkbox" id="burger-checkbox" className="burger__checkbox" />
                 <label htmlFor="burger-checkbox" className="burger__button"></label>
                 <ul className="burger__menu-list">
                     <li><NavLink to='/' className="burger__menu-item">Главная</NavLink></li>

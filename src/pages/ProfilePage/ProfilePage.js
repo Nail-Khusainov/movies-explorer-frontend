@@ -5,8 +5,6 @@ import { NavLink } from 'react-router-dom';
 function ProfilePage() {
   return (
     <section className="profile">
-      <Header />
-
       <main>
         <div className="profile-container">
           <h2 className="profile__greeting">Привет, Виталий!</h2>

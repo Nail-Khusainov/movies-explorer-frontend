@@ -1,7 +1,9 @@
 .page {
+  display: flex;
+  flex-direction: column;
   max-width: 1280px;
   min-width: 320px;
-  min-height: 100vh;
+  height: 100vh;
   margin: 0 auto;
   padding: 0;
   background-color: white;
@@ -9,4 +11,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   padding: 0;
+  /* overflow: hidden; */
+}
+
+.page_blocked {
+  overflow: hidden;
 }

@@ -1,6 +1,6 @@
 .header {
     display: flex;
-    padding: 28px 70px ;
+    padding: 18px 70px;
     margin: 0 auto;
     /* border: 1px solid red; */
     box-sizing: border-box;
@@ -8,16 +8,6 @@
     background-color: white;
     position: relative;
     width: 100%;
-}
-
-.header__center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 25px;
-    width: 100vw;
-    min-height: 18px;
-    /* border: 1px red solid; */
 }
 
 /* .header__center--main {
@@ -30,14 +20,14 @@
     position: absolute;
     align-items: center;
     gap: 30px;
-    /* border: 1px solid red; */
+    border: 1px solid red;
     right: 70px;
     top: 21px;
     padding: 0;
     margin: 0;
 }
 
-.header__link--main {
+.header__link_main {
     display: flex;
     color: white;
     text-decoration: none;
@@ -104,9 +94,6 @@
 
 
 .header__logo {
-    position: absolute;
-    left: 70px;
-    top: 18px;
     width: 38px;
     height: 38px;
     margin: 0;
@@ -119,14 +106,14 @@
     background-repeat: no-repeat;
     background-size: contain;
     /* border: 1px solid red; */
-  }
-  
-  .header__logo:hover {
+}
+
+.header__logo:hover {
     opacity: .8;
-  }
+}
 
 
-  .header--main {
+.header_main {
     background-color: #465DFF;
 }
 
@@ -136,17 +123,9 @@
 
 
 /* первый переход */
-  @media screen and (max-width: 800px) {
+@media screen and (max-width: 800px) {
     .header {
-        padding: 28px 0 26px;
-    }
-    
-    .header__logo {
-        left: 30px;
-    }
-
-    .header__account-section {
-        right: 30px;
+        padding: 18px 30px 16px;
     }
 
     .header__button-logged {
@@ -158,15 +137,10 @@
 /* второй переход */
 
 
-  @media screen and (max-width: 555px) {
-    .header__logo {
-        left: 14px;
-    }
+@media screen and (max-width: 555px) {
 
-    .header__account-section {
-        top: 24px;
-        right: 14px;
-        gap: 14px;
+    .header {
+        padding: 18px 14px 16px;
     }
 
     .header__button-main {
@@ -175,10 +149,7 @@
         font-size: 10px;
     }
 
-    .header__link--main {
+    .header__link_main {
         font-size: 10px;
     }
 }
-
-
-

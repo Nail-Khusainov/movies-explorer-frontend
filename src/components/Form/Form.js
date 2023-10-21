@@ -22,7 +22,7 @@ function Form({ title, numInputs, inputLabels, buttonText, caption, path, submit
                           maxLength="30"
                           required
                       />
-                      <span id={`error-input-${index + 3}`} className="form__input-error">Что-то пошло не так...</span>
+                      <span id={`error-input-${index + 3}`} className="form__input-error"></span>
                   </label>
               ))}
 
