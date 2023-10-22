@@ -10,6 +10,7 @@ function SigninPage() {
     const submitBtnClass = "form__signin-button";
     const path = "/signup";
     const linkText = "Регистрация"
+    const inputTypes = ["email", "password"];
 
     return (
         <Form 
@@ -22,6 +23,7 @@ function SigninPage() {
             submitBtnClass={submitBtnClass}
             path={path}
             linkText = {linkText}
+            inputTypes={inputTypes}
         />
     )
 }

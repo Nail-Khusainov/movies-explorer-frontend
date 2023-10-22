@@ -2,23 +2,67 @@ import React from "react";
 import "./BurgerMenu.css";
 import { NavLink, useLocation } from "react-router-dom";
 
-function BurgerMenu({ setIsBurgerOpened }) {
+function BurgerMenu({ setIsBurgerOpened, isBurgerOpened, isLoggedIn }) {
     const location = useLocation();
     const isMain = location.pathname === '/';
 
+    const handleChange = () => {
+        setIsBurgerOpened(!isBurgerOpened);
+    };
+
     return (
 
-        <section className={`${isMain ? 'burger-disabled' : 'burger'}`}>
+        <section className={`${isLoggedIn ? 'burger' : 'burger-disabled'}`}>
             <div className="burger__menu">
-                <input type="checkbox" id="burger-checkbox" className="burger__checkbox" />
-                <label htmlFor="burger-checkbox" className="burger__button"></label>
-                <ul className="burger__menu-list">
-                    <li><NavLink to='/' className="burger__menu-item">Главная</NavLink></li>
-                    <li><NavLink to='/movies' className="burger__menu-item">Фильмы</NavLink></li>
-                    <li><NavLink to='/saved-movies' className="burger__menu-item">Сохранённые фильмы</NavLink></li>
-                    <NavLink to="/profile" className='burger__button-account'>Аккаунт</NavLink>
-                </ul>
-                <div className="burger-overlay"></div>
+
+                {isBurgerOpened ?
+                    (<>
+                        <ul className="burger__menu-list">
+                            <li>
+                                <NavLink
+                                    to='/'
+                                    onClick={handleChange}
+                                    className={`burger__menu-item ${location.pathname === '/' ? 'burger__menu-item_underline' : ''}`}
+                                >
+                                    Главная
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to='/movies'
+                                    onClick={handleChange}
+                                    className={`burger__menu-item ${location.pathname === '/movies' ? 'burger__menu-item_underline' : ''}`}
+                                >
+                                    Фильмы
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to='/saved-movies'
+                                    onClick={handleChange}
+                                    className={`burger__menu-item ${location.pathname === '/saved-movies' ? 'burger__menu-item_underline' : ''}`}
+                                >
+                                    Сохранённые фильмы
+                                </NavLink>
+                            </li>
+                            <NavLink
+                                to="/profile"
+                                onClick={handleChange}
+                                className='burger__button-account'>
+                                Аккаунт
+                            </NavLink>
+                            <button
+                                className="burger__close-button"
+                                onClick={handleChange}
+                            >
+                            </button>
+                        </ul>
+                        <div className="burger-overlay"></div>
+                    </>) :
+                    (<button
+                        onClick={handleChange}
+                        className={`burger__button ${location.pathname === '/' ? 'burger__button_main' : ''}`}
+                    />)}
             </div>
         </section>
     );

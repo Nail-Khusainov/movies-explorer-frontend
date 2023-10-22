@@ -29,6 +29,10 @@
     cursor: pointer;
 }
 
+.nav__link:hover {
+    opacity: 0.8;
+}
+
 @media screen and (max-width: 555px) {
     .nav {
         padding: 25px 0 24px;

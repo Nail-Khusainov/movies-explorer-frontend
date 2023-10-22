@@ -31,6 +31,10 @@
     margin: 0;
 }
 
+.header__nav-link:hover {
+    opacity: 0.8;
+}
+
 .header__nav-link_main {
     color: white;
 }

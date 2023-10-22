@@ -60,14 +60,14 @@
     color: black;
     font-weight: normal;
     transition: opacity 0.3s linear;
-    background-image: url(../../images/save-button_invisible.png);
+    background-image: url(../../images/save-button_invisible.svg);
     background-position: center;
     background-repeat: no-repeat;
     cursor: pointer;
   }
 
   .movie-card__delete-button {
-    background-image: url(../../images/delete-button.png);
+    background-image: url(../../images/delete-button.svg);
     background-color: #fdfdfd;
   }
   

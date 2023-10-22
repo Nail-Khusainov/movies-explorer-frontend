@@ -16,6 +16,7 @@ function ProfilePage() {
                 className="profile__input"
                 name="name"
                 required
+                placeholder='Виталий'
               ></input>
             </div>
 
@@ -25,6 +26,7 @@ function ProfilePage() {
                 className="profile__input"
                 type="email"
                 name="email"
+                placeholder='pochta@yandex.ru'
               ></input>
             </div>
 

@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import "./Form.css";
 
 
-function Form({ title, numInputs, inputLabels, buttonText, caption, path, submitBtnClass, linkText }) {
+function Form({ title, numInputs, inputLabels, buttonText, caption, path, submitBtnClass, linkText, inputTypes }) {
   return (
       <section className="form-page">
           <form className="form" title={title} name="form">
@@ -17,7 +17,7 @@ function Form({ title, numInputs, inputLabels, buttonText, caption, path, submit
                           className="form__input"
                           id={`input-${index}`}
                           name={`input-${index}`}
-                          type="text"
+                          type={inputTypes[index] || "text"}
                           minLength="2"
                           maxLength="30"
                           required

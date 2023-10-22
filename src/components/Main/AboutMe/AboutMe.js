@@ -16,7 +16,7 @@ function AboutMe() {
                             С 2015 года работал в компании «СКБ Контур». После того, как прошёл курс по веб-разработке,
                             начал заниматься фриланс-заказами и ушёл с постоянной работы.
                         </p>
-                        <a href="#" className="aboutme__link" target="_blank">Github</a>
+                        <a href="https://github.com/Nail-Khusainov" rel="noreferrer" className="aboutme__link" target="_blank">Github</a>
                     </div>
                 </div>
                 <img className="aboutme__photo" alt="мое фото" src={aboutmePic}></img>

@@ -1,6 +1,4 @@
-import Header from '../../components/Header/Header';
 import './SavedMoviesPage.css';
-import Footer from '../../components/Footer/Footer';
 import SearchForm from '../../components/SearchForm/SearchForm';
 import FilterCheckbox from '../../components/FilterCheckbox/FilterCheckbox';
 // import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
@@ -31,7 +29,6 @@ function SavedMoviesPage() {
                         <MoviesCard/>
                 </ul>
         </section>
-            <Footer/>
           </div>
     );
   }

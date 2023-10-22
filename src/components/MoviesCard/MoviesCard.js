@@ -42,7 +42,7 @@ function MoviesCard()
     const isSavedMoviesPage = location.pathname === '/saved-movies';
     return (
         <li className="movie-card">
-            <img className="movie-card__image" src={image} alt="image" />
+            <img className="movie-card__image" src={image} alt="постер фильма" />
             {/* {isOwn && (<button className="button elements__delete-button" type="button" onClick={handleDeleteClick}></button>)} */}
             <div className="movie-card__info">
                 <h2 className="movie-card__title">33 слова о дизайне</h2>
