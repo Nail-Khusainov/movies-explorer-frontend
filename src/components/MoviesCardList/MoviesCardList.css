@@ -44,7 +44,7 @@
 }
 
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 989px) {
   .movies-card {
     padding: 80px 30px;
   }
@@ -80,6 +80,7 @@
     list-style: none;
     margin: 0;
     gap: 20px;
+    align-items: center;
   }
 
   .movies-card__more-button {

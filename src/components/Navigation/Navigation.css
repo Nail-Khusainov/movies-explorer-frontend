@@ -52,6 +52,6 @@
     }
 
     .header__nav-authbar {
-        display: none;
+        /* display: none; */
     }   
 }

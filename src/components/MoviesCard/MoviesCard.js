@@ -1,61 +1,65 @@
 // import React from "react";
 // import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import image from '../../images/image1.png';
+import React from "react";
 import "./MoviesCard.css";
 import { useLocation } from 'react-router-dom';
 
-function MoviesCard()
-
-
-//     { 
-//     link,
-//     name, 
-//     likes,
-//     owner,
-//     id, 
-//     onCardClick,
-//     onCardLike,
-//     onCardDelete,
-// }) 
-
-{
-    // const currentUser = React.useContext(CurrentUserContext);
-    // const isOwn = owner._id === currentUser._id;
-    // const isLiked = likes.some(i => i._id === currentUser._id);
-
-    // const cardLikeButtonClassName = ( 
-    //     `button elements__like-button ${isLiked && 'elements__like-button_active'}` 
-    // );
-
-    // function handleCardClick() {
-    //     onCardClick( {link, name} );
-    // };
-
-    // function handleLikeClick() {
-    //     onCardLike( {likes, id} )
-    // }
-
-    // function handleDeleteClick() {
-    //     onCardDelete ( {id} )
-    // }
+function MoviesCard({ data, onSaveMovie, onDeleteMovie, savedMovies }) {
     const location = useLocation();
     const isSavedMoviesPage = location.pathname === '/saved-movies';
+    const baseURL = "https://api.nomoreparties.co";
+    const imageLink = data.image.url ? baseURL + data.image.url : data.image;
+
+    const handleSaveClick = () => {
+        onSaveMovie(data);
+    }
+
+    const handleDeleteClick = () => {
+        onDeleteMovie(data);
+    }
+
+    const isSaved = savedMovies.some(movie => movie.movieId === data.id);
+
+    function calcDuration(min) {
+        return `${Math.floor(min / 60)}ч ${min % 60}м`;
+    }
+
+    const movieDuration = calcDuration(data.duration);
+
+
+
+
+    // console.log(isSaved)
+
+    const saveButtonClassName = `${isSavedMoviesPage
+        ? "movie-card__delete-button"
+        : isSaved
+            ? "movie-card__save-button_active"
+            : "movie-card__save-button"
+        }`;
+
     return (
         <li className="movie-card">
-            <img className="movie-card__image" src={image} alt="постер фильма" />
-            {/* {isOwn && (<button className="button elements__delete-button" type="button" onClick={handleDeleteClick}></button>)} */}
+            <div className="movie-card__image-container">
+                <img className="movie-card__image" src={imageLink} alt={`Постер фильма ${data.nameRU}`} />
+            </div>
             <div className="movie-card__info">
-                <h2 className="movie-card__title">33 слова о дизайне</h2>
+                <h2 className="movie-card__title">{data.nameRU}</h2>
                 <div className="movie-card__save-section">
                     <button
-                        className={`movie-card__save-button ${isSavedMoviesPage ? 'movie-card__delete-button' : ''}`}
-                        type="button">
+                        // className={`movie-card__save-button ${isSavedMoviesPage ? 'movie-card__delete-button' : ''}`}
+                        // type="button"
+                        // onClick={isSavedMoviesPage ? handleDeleteClick : handleSaveClick}
+                        className={saveButtonClassName}
+                        type="button"
+                        onClick={isSavedMoviesPage ? handleDeleteClick : isSaved ? handleDeleteClick : handleSaveClick}
+                    >
                     </button>
                 </div>
-                <p className="movie-card__movie-length">1ч42м</p>
+                <p className="movie-card__movie-length">{movieDuration}</p>
             </div>
         </li>
-    )
+    );
 }
 
 export default MoviesCard;

@@ -1,47 +1,78 @@
-import MoviesCard from "../MoviesCard/MoviesCard";
-import "./MoviesCardList.css";
+import React, { useState, useEffect } from 'react';
+import MoviesCard from '../MoviesCard/MoviesCard';
+import './MoviesCardList.css';
 
-function MoviesCardList() {
+function MoviesCardList({ movieCards, onSaveMovie, onDeleteMovie, searchQuery, savedMovies }) {
+  const [cardsToShow, setCardsToShow] = useState();
 
-    return (
-        <section className="movies-card">
-                <ul className="movies-card__list">
+  const handleShowMore = () => {
+    setCardsToShow(prevCount => prevCount + calculateCardsToAdd());
+  };
+  
+  const calculateCardsToAdd = () => {
+    const screenWidth = window.innerWidth;
+    if (screenWidth >= 1280) {
+      return 4;
+    } else if (screenWidth >= 990) {
+      return 3;
+    } else if (screenWidth >= 767) {
+      return 2;
+    } else {
+      return 1;
+    }
+  };
+  const calculateCardsPerRow = () => {
+    const screenWidth = window.innerWidth;
+    if (screenWidth >= 1280) {
+      return 16;
+    } else if (screenWidth >= 990) {
+      return 12;
+    } else if (screenWidth >= 767) {
+      return 8;
+    } else {
+      return 5;
+    }
+  };
 
-                        <MoviesCard
-                            // link={card.link}
-                            // name={card.name}
-                            // likes={card.likes}
-                            // owner={card.owner}
-                            // id={card._id}
-                            // key={card._id}
-                            // onCardClick={onCardClick}
-                            // onCardLike={onCardLike}
-                            // onCardDelete={onCardDelete}
-                        />
-                        <MoviesCard/>
-                        <MoviesCard/>
-                        <MoviesCard/>
-                        <MoviesCard/>
-                        <MoviesCard/>
-                        <MoviesCard/>
-                        <MoviesCard/>
-                        <MoviesCard/>
-                        <MoviesCard/>
-                        <MoviesCard/>
-                        <MoviesCard/>
-                        <MoviesCard/>
-                        <MoviesCard/>
-                        <MoviesCard/>
-                        <MoviesCard/>
+  useEffect(() => {
+    const handleResize = () => {
+      setCardsToShow(calculateCardsPerRow());
+    };
 
-                </ul>
-                    <button className="movies-card__more-button">
-                        Ещё
-                    </button>
-        </section>
-    );
+    handleResize();
 
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  return (
+    <section className="movies-card">
+      <ul className="movies-card__list">
+        {movieCards.slice(0, cardsToShow).map((movie, index) => {
+          if (searchQuery && !movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())) {
+            return null;
+          }
+          return (
+            <MoviesCard
+              key={index}
+              data={movie}
+              onSaveMovie={onSaveMovie}
+              onDeleteMovie={onDeleteMovie}
+              savedMovies={savedMovies}
+            />
+          );
+        })}
+      </ul>
+      {cardsToShow < movieCards.length && (
+        <button className="movies-card__more-button" onClick={handleShowMore}>
+          Ещё
+        </button>
+      )}
+    </section>
+  );
 }
-
 
 export default MoviesCardList;

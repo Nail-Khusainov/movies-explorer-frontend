@@ -4,7 +4,6 @@ import { NavLink, useLocation } from "react-router-dom";
 
 function AuthNavigation() {
     const location = useLocation();
-    const isMain = location.pathname === '/';
 
     return (
         <nav className='header__nav'>

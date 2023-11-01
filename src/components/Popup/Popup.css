@@ -1,0 +1,50 @@
+.popup {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    background: rgb(245, 245, 245);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    /* border: 1px solid grey; */
+    border-radius: 10px;
+    margin: 0 0 200px 0;
+  }
+  
+  .popup-content {
+    background:  rgb(245, 245, 245);
+    padding: 20px;
+    max-width: 300px;
+    text-align: center;
+    position: relative;
+  }
+
+  .popup-message {
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 26.63px;
+  }
+  
+  .popup-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    background-image: url(../../images/close-burger-icon.svg);
+    background-position: center;
+    z-index: 2;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+  }
+
+  .popup-close-button:hover {
+   opacity: 0.8;
+  }
+
+
+  

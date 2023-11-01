@@ -4,8 +4,7 @@ import { NavLink, useLocation } from "react-router-dom";
 
 function BurgerMenu({ setIsBurgerOpened, isBurgerOpened, isLoggedIn }) {
     const location = useLocation();
-    const isMain = location.pathname === '/';
-
+    
     const handleChange = () => {
         setIsBurgerOpened(!isBurgerOpened);
     };

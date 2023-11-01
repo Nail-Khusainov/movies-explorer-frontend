@@ -1,4 +1,3 @@
-import { Route, Routes, Link } from "react-router-dom";
 import "./Promo.css";
 
 function Promo() {
