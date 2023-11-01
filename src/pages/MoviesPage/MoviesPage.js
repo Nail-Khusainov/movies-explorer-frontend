@@ -61,14 +61,6 @@ function MoviesPage({ movieCards, onSaveMovie, onDeleteMovie, savedMovies, getMo
     
   }, [searchQuery, isShortFilm, movieCards]);
 
-  // const areMoviesNotFound = () => {
-  //   const filteredMovies = filterMoviesByName(); // Предположим, что у вас есть функция filterMoviesByName
-  //   return filteredMovies.length === 0;
-  // };
-
-
-  
-
   return (
     <section className="movies-page">
       <SearchForm
@@ -76,7 +68,6 @@ function MoviesPage({ movieCards, onSaveMovie, onDeleteMovie, savedMovies, getMo
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         getMovies={getMovies}
-        // areMoviesNotFound={areMoviesNotFound}
       />
       <FilterCheckbox
         initChecked={isShortFilm}

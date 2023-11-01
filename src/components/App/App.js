@@ -48,7 +48,6 @@ function App() {
         if (res) {
           setIsLoggedIn(true);
           setEmail(res.email);
-          // navigate("/movies", { replace: true });
         }
         setAppIsReady(true);
       })
@@ -94,19 +93,6 @@ function App() {
         setShowErrorPopup(true);
         console.error(error);
       });
-  }
-
-  function handleErrorPopupOpen() {
-    setShowErrorPopup(true);
-  }
-
-  function handleSuccessPopupOpen() {
-    setShowSuccessPopup(true);
-  }
-
-  function handlePopupClose() {
-    setShowSuccessPopup(false);
-    setShowErrorPopup(false);
   }
 
   async function handleSignOut() {
@@ -292,7 +278,6 @@ function App() {
                       <Navigate to="/" />
                     ) : (
                       <SignupPage
-                        // isFormBlocked={isFormBlocked}
                         onRegister={onRegister}
                         showSuccessPopup={showSuccessPopup}
                         showErrorPopup={showErrorPopup}

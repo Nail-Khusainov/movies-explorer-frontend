@@ -1,6 +1,4 @@
 import "./SearchForm.css";
-// import React, { useState } from "react";
-
 import React, { useEffect, useState } from "react";
 
 function SearchForm({ onSubmit, getMovies, searchQuery }) {
@@ -22,7 +20,7 @@ function SearchForm({ onSubmit, getMovies, searchQuery }) {
 
   return (
     <section className="search-section">
-      <form className="search-section__form" onSubmit={handleSubmit}>
+      <form className="search-section__form" onSubmit={handleSubmit} noValidate>
         <input
           className="search-section__input"
           type="text"
@@ -35,11 +33,10 @@ function SearchForm({ onSubmit, getMovies, searchQuery }) {
         <button
           className="search-section__submit-button"
           type="submit"
-          // disabled={!query.trim()}
         >
         </button>
       </form>
-      <span className="search-section__input-error">Введите название фильма</span>
+      <span className="search-section__input-error">{query ? "" : "Введите название фильма"}</span>
     </section>
   );
 }
