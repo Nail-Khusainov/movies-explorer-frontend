@@ -69,7 +69,6 @@ function App() {
 
   React.useEffect(tokenCheck, [navigate]);
 
-
   function onLogin(email, password) {
     authorize(email, password)
       .then(() => {
@@ -77,7 +76,11 @@ function App() {
         setEmail(email);
         navigate("/", { replace: true });
       })
-      .catch(console.error);
+      .catch((error) => {
+        // В случае ошибки регистрации покажем попап с сообщением об ошибке
+        setShowErrorPopup(true);
+        console.error(error);
+      });
   };
 
   function onRegister(name, email, password) {
@@ -91,6 +94,14 @@ function App() {
         setShowErrorPopup(true);
         console.error(error);
       });
+  }
+
+  function handleErrorPopupOpen() {
+    setShowErrorPopup(true);
+  }
+
+  function handleSuccessPopupOpen() {
+    setShowSuccessPopup(true);
   }
 
   function handlePopupClose() {
@@ -128,7 +139,6 @@ function App() {
       setCards(storedAllMovies);
     }
   }, []);
-
 
   useEffect(() => {
     mainApi
@@ -269,6 +279,8 @@ function App() {
                   element={
                     <SigninPage
                       onLogin={onLogin}
+                      showErrorPopup={showErrorPopup}
+                      closeErrorPopup={setShowErrorPopup}
                     />
                   }
                 />
@@ -282,6 +294,10 @@ function App() {
                       <SignupPage
                         // isFormBlocked={isFormBlocked}
                         onRegister={onRegister}
+                        showSuccessPopup={showSuccessPopup}
+                        showErrorPopup={showErrorPopup}
+                        closeErrorPopup={setShowErrorPopup}
+                        closeSuccessPopup={setShowSuccessPopup}
                       />
                     )
                   }

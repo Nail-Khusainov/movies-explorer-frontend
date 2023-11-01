@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import "./SignupPage.css";
 import Form from "../../components/Form/Form";
+import Popup from "../../components/Popup/Popup";
 
-function SignupPage({ onRegister }) {
+function SignupPage({ onRegister, showSuccessPopup, showErrorPopup, closeErrorPopup, closeSuccessPopup }) {
     const [userData, setUserData] = useState({
         name: "",
         email: "",
         password: "",
     });
-
 
     function handleChange(e) {
         const { name, value } = e.target;
@@ -25,6 +25,11 @@ function SignupPage({ onRegister }) {
         );
     }
 
+    const closePopups = () => {
+        closeErrorPopup(false)
+        closeSuccessPopup(false)
+    };
+
     const inputLabels = ["Имя", "E-mail", "Пароль"];
     const buttonText = "Зарегистрироваться";
     const caption = "Уже зарегистрированы?";
@@ -37,7 +42,7 @@ function SignupPage({ onRegister }) {
     const names = ["name", "email", "password"];
 
     return (
-        <div>
+        <div className="signup-page">
             <Form
                 title="Добро пожаловать!"
                 numInputs={3}
@@ -55,7 +60,14 @@ function SignupPage({ onRegister }) {
                 handleSubmit={handleSubmit}
                 names={names}
             />
+            {showSuccessPopup && (
+                <Popup text="Вы успешно зарегистрировались!" onClose={closePopups} />
+            )}
+            {showErrorPopup && (
+                <Popup text="Что-то пошло не так" onClose={closePopups} />
+            )}
         </div>
+
     );
 }
 

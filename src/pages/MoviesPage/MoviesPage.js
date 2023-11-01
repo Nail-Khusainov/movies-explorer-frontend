@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import SearchForm from "../../components/SearchForm/SearchForm";
 import FilterCheckbox from "../../components/FilterCheckbox/FilterCheckbox";
 import MoviesCardList from "../../components/MoviesCardList/MoviesCardList";
+import NoResultsMessage from "../../components/NoResultsMessage/NoResultsMessage";
 
 function MoviesPage({ movieCards, onSaveMovie, onDeleteMovie, savedMovies, getMovies }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [isShortFilm, setIsShortFilm] = useState(false);
   const [filteredMovies, setFilteredMovies] = useState([]);
+  const [searchPerformed, setSearchPerformed] = useState(false);
 
 
   useEffect(() => {
@@ -25,6 +27,7 @@ function MoviesPage({ movieCards, onSaveMovie, onDeleteMovie, savedMovies, getMo
   const handleSearchSubmit = (query) => {
     setSearchQuery(query);
     localStorage.setItem('searchQuery', JSON.stringify(query));
+    setSearchPerformed(true);
   };
 
   const handleCheckBox = (isShortFilm) => {
@@ -79,13 +82,17 @@ function MoviesPage({ movieCards, onSaveMovie, onDeleteMovie, savedMovies, getMo
         initChecked={isShortFilm}
         onShortFilmToggle={handleCheckBox}
       />
-      <MoviesCardList
-        movieCards={filteredMovies}
-        onSaveMovie={onSaveMovie}
-        onDeleteMovie={onDeleteMovie}
-        searchQuery={searchQuery}
-        savedMovies={savedMovies}
-      />
+      {searchPerformed && filteredMovies.length === 0 ? ( // Проверяем, был ли выполнен поиск
+        <NoResultsMessage />
+      ) : (
+        <MoviesCardList
+          movieCards={filteredMovies}
+          onSaveMovie={onSaveMovie}
+          onDeleteMovie={onDeleteMovie}
+          searchQuery={searchQuery}
+          savedMovies={savedMovies}
+        />
+      )}
     </section>
   );
 }

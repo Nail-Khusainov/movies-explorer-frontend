@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./SigninPage.css";
 import Form from "../../components/Form/Form";
+import Popup from "../../components/Popup/Popup";
 
-function SigninPage({ onLogin }) {
+function SigninPage({ onLogin, showErrorPopup, closeErrorPopup }) {
 
     const [userData, setUserData] = useState({
         email: "",
@@ -20,6 +21,10 @@ function SigninPage({ onLogin }) {
         onLogin(email, password);
     }
 
+    const closePopups = () => {
+        closeErrorPopup(false)
+    };
+
 
     const inputLabels = ["E-mail", "Пароль"];
     const buttonText = "Войти";
@@ -36,23 +41,28 @@ function SigninPage({ onLogin }) {
 
 
     return (
-        <Form
-            title="Рады видеть!"
-            numInputs={2}
-            inputLabels={inputLabels}
-            buttonText={buttonText}
-            caption={caption}
-            errorMessages={errorMessages}
-            submitBtnClass={submitBtnClass}
-            submitBtnClassDisabled={submitBtnClassDisabled}
-            path={path}
-            linkText={linkText}
-            inputTypes={inputTypes}
-            names={names}
-            values={values}
-            handleChange={handleChange}
-            handleSubmit={handleSubmit}
-        />
+        <div className="signin-page">
+            <Form
+                title="Рады видеть!"
+                numInputs={2}
+                inputLabels={inputLabels}
+                buttonText={buttonText}
+                caption={caption}
+                errorMessages={errorMessages}
+                submitBtnClass={submitBtnClass}
+                submitBtnClassDisabled={submitBtnClassDisabled}
+                path={path}
+                linkText={linkText}
+                inputTypes={inputTypes}
+                names={names}
+                values={values}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+            />
+            {showErrorPopup && (
+                <Popup text="Неверные email или пароль" onClose={closePopups} />
+            )}
+        </div>
     )
 }
 

@@ -39,7 +39,7 @@ function SearchForm({ onSubmit, getMovies, searchQuery }) {
         >
         </button>
       </form>
-      <span className="search-section__input-error"></span>
+      <span className="search-section__input-error">Введите название фильма</span>
     </section>
   );
 }
