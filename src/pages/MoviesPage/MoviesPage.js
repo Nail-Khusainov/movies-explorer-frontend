@@ -3,8 +3,9 @@ import SearchForm from "../../components/SearchForm/SearchForm";
 import FilterCheckbox from "../../components/FilterCheckbox/FilterCheckbox";
 import MoviesCardList from "../../components/MoviesCardList/MoviesCardList";
 import NoResultsMessage from "../../components/NoResultsMessage/NoResultsMessage";
+import Preloader from "../../components/Preloader/Preloader";
 
-function MoviesPage({ movieCards, onSaveMovie, onDeleteMovie, savedMovies, getMovies }) {
+function MoviesPage({ movieCards, onSaveMovie, onDeleteMovie, savedMovies, getMovies, isLoading }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [isShortFilm, setIsShortFilm] = useState(false);
   const [filteredMovies, setFilteredMovies] = useState([]);
@@ -73,15 +74,17 @@ function MoviesPage({ movieCards, onSaveMovie, onDeleteMovie, savedMovies, getMo
         initChecked={isShortFilm}
         onShortFilmToggle={handleCheckBox}
       />
-      {searchPerformed && filteredMovies.length === 0 ? ( // Проверяем, был ли выполнен поиск
+      {isLoading ? (
+        <Preloader />
+      ) : searchPerformed && filteredMovies.length === 0 ? (
         <NoResultsMessage />
       ) : (
         <MoviesCardList
           movieCards={filteredMovies}
-          onSaveMovie={onSaveMovie}
           onDeleteMovie={onDeleteMovie}
           searchQuery={searchQuery}
           savedMovies={savedMovies}
+          onSaveMovie={onSaveMovie}
         />
       )}
     </section>

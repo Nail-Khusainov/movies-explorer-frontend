@@ -2,41 +2,41 @@ import './SavedMoviesPage.css';
 import SearchForm from '../../components/SearchForm/SearchForm';
 import FilterCheckbox from '../../components/FilterCheckbox/FilterCheckbox';
 // import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
-import MoviesCard from "../../components/MoviesCard/MoviesCard";
+// import MoviesCard from "../../components/MoviesCard/MoviesCard";
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+// import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import React, { useEffect, useState } from 'react';
+import Preloader from "../../components/Preloader/Preloader";
+import NoResultsMessage from "../../components/NoResultsMessage/NoResultsMessage";
 
-
-function SavedMoviesPage({ movieCards, onDeleteMovie, savedMovies, getMovies }) {
+function SavedMoviesPage({ movieCards, onDeleteMovie, savedMovies, getMovies, isLoading }) {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [isShortFilm, setIsShortFilm] = useState(false);
   const [filteredMovies, setFilteredMovies] = useState([]);
+  const [searchPerformed, setSearchPerformed] = useState(false);
 
+  // useEffect(() => {
+  //   const storedSearchQuery = JSON.parse(localStorage.getItem('searchQuerySaved'));
+  //   const storedSearchShortFilm = JSON.parse(localStorage.getItem('searchShortFilmSaved'));
 
-  useEffect(() => {
-    // Проверяем, есть ли результаты поиска в локальном хранилище
-    const storedSearchQuery = JSON.parse(localStorage.getItem('searchQuerySaved'));
-    const storedSearchShortFilm = JSON.parse(localStorage.getItem('searchShortFilmSaved'));
-
-    if (storedSearchQuery) {
-      setSearchQuery(storedSearchQuery);
-    }
-    if (storedSearchShortFilm) {
-      setIsShortFilm(storedSearchShortFilm);
-    }
-  }, []);
+  //   if (storedSearchQuery) {
+  //     setSearchQuery(storedSearchQuery);
+  //   }
+  //   if (storedSearchShortFilm) {
+  //     setIsShortFilm(storedSearchShortFilm);
+  //   }
+  // }, []);
 
   const handleSearchSubmit = (query) => {
     setSearchQuery(query);
-    localStorage.setItem('searchQuerySaved', JSON.stringify(query));
-
+    // localStorage.setItem('searchQuerySaved', JSON.stringify(query));
+    setSearchPerformed(true);
   };
 
   const handleCheckBox = (isShortFilm) => {
     setIsShortFilm(isShortFilm);
-    localStorage.setItem('searchShortFilmSaved', JSON.stringify(isShortFilm));
+    // localStorage.setItem('searchShortFilmSaved', JSON.stringify(isShortFilm));
   };
 
   useEffect(() => {
@@ -48,7 +48,7 @@ function SavedMoviesPage({ movieCards, onDeleteMovie, savedMovies, getMovies }) 
         return movieCards;
       }
     };
-    
+
     // Фильтрация фильмов по названию
     const filterMoviesByName = () => {
       if (searchQuery) {
@@ -76,12 +76,26 @@ function SavedMoviesPage({ movieCards, onDeleteMovie, savedMovies, getMovies }) 
         initChecked={isShortFilm}
         onShortFilmToggle={handleCheckBox}
       />
-      <MoviesCardList
+      {isLoading ? (
+        <Preloader />
+      ) : searchPerformed && filteredMovies.length === 0 ? (
+        <NoResultsMessage />
+      ) : (
+        <MoviesCardList
+          movieCards={filteredMovies}
+          onDeleteMovie={onDeleteMovie}
+          searchQuery={searchQuery}
+          savedMovies={savedMovies}
+        />
+      )}
+
+
+      {/* <MoviesCardList
         movieCards={filteredMovies}
         onDeleteMovie={onDeleteMovie}
         searchQuery={searchQuery}
         savedMovies={savedMovies}
-      />
+      /> */}
     </div>
   );
 }

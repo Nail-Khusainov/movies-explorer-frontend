@@ -4,7 +4,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import validator from 'validator';
 import Popup from '../../components/Popup/Popup';
 
-function ProfilePage({ onSignOut, onUpdateUser }) {
+function ProfilePage({ onSignOut, onUpdateUser, showSuccessPopup, showErrorPopup, closeErrorPopup, closeSuccessPopup }) {
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState(currentUser.name);
   const [email, setEmail] = useState(currentUser.email);
@@ -12,25 +12,25 @@ function ProfilePage({ onSignOut, onUpdateUser }) {
 
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
-  const [showPopup, setShowPopup] = useState(false);
 
   const handleUpdateProfile = (e) => {
     e.preventDefault();
     onUpdateUser({ name, email });
     setIsButtonDisabled(true);
-    setShowPopup(true);
     console.log({ name, email });
   };
 
-  const closePopup = () => {
-    setShowPopup(false);
-  };
 
   useEffect(() => {
     setName(currentUser.name);
     setEmail(currentUser.email);
     setIsButtonDisabled(true);
   }, [currentUser]);
+
+  const closePopups = () => {
+    closeErrorPopup(false)
+    closeSuccessPopup(false)
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -106,7 +106,12 @@ function ProfilePage({ onSignOut, onUpdateUser }) {
           <button to="/signin" className="profile__exit" onClick={onSignOut}>
             Выйти из аккаунта
           </button>
-          {showPopup && <Popup text="Профиль успешно обновлен!" onClose={closePopup} />}
+          {showSuccessPopup && (
+            <Popup text="Профиль обновлён!" onClose={closePopups} />
+          )}
+          {showErrorPopup && (
+            <Popup text="Что-то пошло не так" onClose={closePopups} />
+          )}
         </div>
       </main>
     </section>

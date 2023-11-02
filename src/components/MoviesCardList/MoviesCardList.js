@@ -18,7 +18,7 @@ function MoviesCardList({ movieCards, onSaveMovie, onDeleteMovie, searchQuery, s
     } else if (screenWidth >= 767) {
       return 2;
     } else {
-      return 1;
+      return 2;
     }
   };
   const calculateCardsPerRow = () => {
@@ -47,7 +47,7 @@ function MoviesCardList({ movieCards, onSaveMovie, onDeleteMovie, searchQuery, s
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-  
+
   return (
     <section className="movies-card">
       <ul className="movies-card__list">
@@ -55,7 +55,6 @@ function MoviesCardList({ movieCards, onSaveMovie, onDeleteMovie, searchQuery, s
           if (searchQuery && !movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())) {
             return null;
           }
-          console.log("Movie object:", movie);
           return (
             <MoviesCard
               key={index}

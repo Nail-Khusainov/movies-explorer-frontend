@@ -11,8 +11,6 @@ import SigninPage from '../../pages/SignInPage/SigninPage';
 import SignupPage from '../../pages/SignUpPage/SignupPage';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import Popup from '../../components/Popup/Popup';
-
 
 import { register, authorize, userTokenCheck, signOut } from '../../utils/Auth';
 import mainApi from '../../utils/MainApi';
@@ -35,48 +33,35 @@ function App() {
 
   const [cards, setCards] = useState([]);
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [showErrorPopup, setShowErrorPopup] = useState(false);
 
   const [appIsReady, setAppIsReady] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
 
-  const tokenCheck = () => {
-    userTokenCheck()
+  const tokenCheck = (url) => {
+      userTokenCheck()
       .then((res) => {
         if (res) {
           setIsLoggedIn(true);
-          setEmail(res.email);
+          setAppIsReady(true)
+          navigate(url);
         }
-        setAppIsReady(true);
       })
-      .catch(console.error)
+      .catch((error) => console.log("Render error:", error))
   };
 
-  React.useEffect(() => {
-    if (
-      window.location.pathname.includes("/movies") ||
-      window.location.pathname.includes("/saved-movies") ||
-      window.location.pathname.includes("/profile")
-    ) {
-      tokenCheck(); // Проверяем токен только для защищенных путей
-    } else {
-      setAppIsReady(true); // Для других путей сразу показываем приложение
-    }
-  }, []);
+  React.useEffect(() => tokenCheck(window.location.pathname), []);
 
-  React.useEffect(tokenCheck, [navigate]);
 
   function onLogin(email, password) {
     authorize(email, password)
       .then(() => {
         setIsLoggedIn(true);
-        setEmail(email);
-        navigate("/", { replace: true });
+        navigate("/movies", { replace: true });
       })
       .catch((error) => {
-        // В случае ошибки регистрации покажем попап с сообщением об ошибке
         setShowErrorPopup(true);
         console.error(error);
       });
@@ -85,11 +70,10 @@ function App() {
   function onRegister(name, email, password) {
     register(name, email, password)
       .then(() => {
-        // После успешной регистрации покажем попап с сообщением
         setShowSuccessPopup(true);
+        onLogin(email, password);
       })
       .catch((error) => {
-        // В случае ошибки регистрации покажем попап с сообщением об ошибке
         setShowErrorPopup(true);
         console.error(error);
       });
@@ -100,6 +84,7 @@ function App() {
       await signOut();
       localStorage.clear();
       setIsLoggedIn(false);
+      setCards([])
       navigate("/", { replace: true });
     } catch (err) {
       console.error(err);
@@ -108,13 +93,17 @@ function App() {
 
   async function handleGetMovies() {
     try {
-      if (isLoggedIn) {
+      if (isLoggedIn && cards.length === 0) {
+        setIsLoading(true);
         const cards = await getMovieCards();
         setCards(cards);
         localStorage.setItem("allMovies", JSON.stringify(cards));
       }
     } catch (error) {
       console.error(error);
+    }
+    finally {
+      setIsLoading(false);
     }
   };
 
@@ -127,12 +116,14 @@ function App() {
   }, []);
 
   useEffect(() => {
-    mainApi
-      .getUserInfoFromServer()
-      .then((userData) => {
-        setCurrentUser(userData);
-      })
-      .catch(console.error);
+    if (isLoggedIn) {
+      mainApi
+        .getUserInfoFromServer()
+        .then((userData) => {
+          setCurrentUser(userData);
+        })
+        .catch(console.error);
+    }
   }, [isLoggedIn]);
 
   //АПДЕЙТ СОХРАНЕННЫХ КАРТОЧЕК
@@ -146,7 +137,6 @@ function App() {
         );
 
         setSavedMovies(userSavedMovies);
-        localStorage.setItem("savedMovies", JSON.stringify(userSavedMovies));
       }
     } catch (error) {
       console.error(error);
@@ -154,8 +144,10 @@ function App() {
   }
 
   useEffect(() => {
-    updateSavedMovies();
-  }, [currentUser]);
+    if (isLoggedIn && currentUser.email !== '') {
+      updateSavedMovies();
+    }
+  }, [currentUser.email, isLoggedIn]);
 
   //СОХРАНЕНИЕ КАРТОЧКИ
   async function handleSaveMovieСard(movie) {
@@ -184,7 +176,8 @@ function App() {
       }
 
       await mainApi.deleteMovieCard(currentMovie._id);
-      updateSavedMovies();
+      // updateSavedMovies();
+      setSavedMovies(savedMovies.filter((m) => m.movieId !== movieId));
     } catch (error) {
       console.error(`Render error: ${error}`);
     }
@@ -194,8 +187,10 @@ function App() {
     try {
       const response = await mainApi.setNewUserInfo(userData);
       setCurrentUser(response);
+      setShowSuccessPopup(true);
       console.log(response)
     } catch (error) {
+      setShowErrorPopup(true);
       console.error("User update error:", error);
     }
   }
@@ -225,6 +220,7 @@ function App() {
                       searchResult={searchResult}
                       savedMovies={savedMovies}
                       getMovies={handleGetMovies}
+                      isLoading={isLoading}
                     />
                   }
                 />
@@ -243,6 +239,7 @@ function App() {
                       searchResult={searchResult}
                       savedMovies={savedMovies}
                       getMovies={handleGetMovies}
+                      isLoading={isLoading}
                     />
                   }
                 />
@@ -256,6 +253,10 @@ function App() {
                       onSignOut={handleSignOut}
                       isLoggedIn={isLoggedIn}
                       onUpdateUser={handleUpdateUser}
+                      showSuccessPopup={showSuccessPopup}
+                      showErrorPopup={showErrorPopup}
+                      closeErrorPopup={setShowErrorPopup}
+                      closeSuccessPopup={setShowSuccessPopup}
                     />
                   }
                 />
@@ -263,11 +264,15 @@ function App() {
                 <Route
                   path='/signin'
                   element={
-                    <SigninPage
-                      onLogin={onLogin}
-                      showErrorPopup={showErrorPopup}
-                      closeErrorPopup={setShowErrorPopup}
-                    />
+                    isLoggedIn ? (
+                      <Navigate to="/movies" />
+                    ) : (
+                      <SigninPage
+                        onLogin={onLogin}
+                        showErrorPopup={showErrorPopup}
+                        closeErrorPopup={setShowErrorPopup}
+                      />
+                    )
                   }
                 />
 
@@ -275,7 +280,7 @@ function App() {
                   path="/signup"
                   element={
                     isLoggedIn ? (
-                      <Navigate to="/" />
+                      <Navigate to="/movies" />
                     ) : (
                       <SignupPage
                         onRegister={onRegister}

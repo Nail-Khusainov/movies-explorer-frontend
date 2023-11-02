@@ -20,6 +20,7 @@ function Form({
     names,
 }) {
     const [errors, setErrors] = useState(Array(numInputs).fill(""));
+    const [isValid, setIsValid] = useState(false);
 
     function validateInput(name, value) {
         const validationFunctions = {
@@ -43,9 +44,11 @@ function Form({
         const errorMessage = validateInput(name, value);
         setErrors((prev) => prev.map((error, i) => (i === index ? errorMessage : error)));
         handleChange(e);
+    
+        const isAnyEmpty = values.some(value => !value.trim());
+        const isValid = !isAnyEmpty && errors.every((error, i) => i === index ? !errorMessage : !error);
+        setIsValid(isValid);
     }
-
-    const isFormValid = errors.every((error) => error === "");
 
     return (
         <section className="form-page">
@@ -73,7 +76,7 @@ function Form({
                     </label>
                 ))}
 
-                <button className={isFormValid ? submitBtnClass : submitBtnClassDisabled} type="submit" disabled={!isFormValid}>
+                <button className={isValid ? submitBtnClass : submitBtnClassDisabled} type="submit" disabled={!isValid}>
                     {buttonText}
                 </button>
                 <p className="form__caption">
