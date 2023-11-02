@@ -1,0 +1,114 @@
+.portfolio {
+    padding: 0px 70px;
+}
+
+.portfolio__header {
+    color: #a0a0a0;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 20px;
+    padding: 0;
+    margin: 0;
+    padding-bottom: 30px;
+}
+
+.portfolio__list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 0 105px 0;
+    margin: 0;
+}
+
+.portfolio__element {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    background-color: white;
+    color: black;
+    border: 0;
+    cursor: pointer;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 19px 0;
+    text-decoration: none;
+}
+
+.portfolio__element:hover {
+    opacity: .7;
+}
+
+
+.portfolio__element-title {
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 51px;
+    padding: 0;
+    margin: 0;
+    letter-spacing: -0.04em;
+}
+
+.portfolio__element-title:hover {
+    opacity: .8;
+}
+
+.portfolio__element-arrow {
+    margin: 19px 6px 0 0;
+    padding: 0;
+    height: 17px;
+    width: 18px;
+}
+
+/* ПЕРВЫЙ ПЕРЕХОД */
+
+@media screen and (max-width: 800px) {
+    .portfolio {
+        padding: 0px 50px;
+    }
+
+    .portfolio__list {
+        padding-bottom: 70px;
+    }
+
+    .portfolio__element-title {
+        font-size: 28px;
+        line-height: 51px;
+    }
+
+    .portfolio__element-arrow {
+        height: 16px;
+        width: 17px;
+    }
+}
+
+/* ВТОРОЙ ПЕРЕХОД */
+
+@media screen and (max-width: 555px) {
+    .portfolio {
+        padding: 0px 14px;
+    }
+
+    .portfolio__header {
+        font-size: 14px;
+        line-height: 20px;
+        padding-bottom: 22px;
+    }
+
+    .portfolio__list {
+        padding-bottom: 70px;
+    }
+
+    .portfolio__element {
+        margin: auto 0;
+    }
+
+    .portfolio__element-title {
+        font-size: 18px;
+        line-height: 28px;
+    }
+
+    .portfolio__element-arrow {
+        height: 10px;
+        width: 10px;
+        margin: auto 4px;
+    }
+}

@@ -1,0 +1,17 @@
+.no-results-container {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    padding: 150px 0;
+}
+
+.no-results-message {
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 26.63px;
+    text-align: center;
+
+}
+
