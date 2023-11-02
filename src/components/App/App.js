@@ -45,11 +45,11 @@ function App() {
       .then((res) => {
         if (res) {
           setIsLoggedIn(true);
-          setAppIsReady(true)
           navigate(url);
         }
       })
       .catch((error) => console.log("Render error:", error))
+      .finally(() => setAppIsReady(true))
   };
 
   React.useEffect(() => tokenCheck(window.location.pathname), []);
